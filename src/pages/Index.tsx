@@ -200,7 +200,7 @@ export default function Index() {
         setPhase("message");
         setTimeout(() => setShowFlower(true), 3000);
       }
-    }, 4000);
+    }, 8000);
   };
 
   const handleReset = () => {
@@ -568,7 +568,7 @@ export default function Index() {
               }}
               initial={{ opacity: 1, y: 0, scale: 1 }}
               animate={{ opacity: 0, y: 230, scale: 0.58 }}
-              transition={{ duration: 3.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 7.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <motion.div
                 animate={{ rotate: [0, -3, 3, -2, 0] }}
