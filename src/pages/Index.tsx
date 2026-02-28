@@ -156,7 +156,7 @@ function OpalStoneSVG() {
 
 export default function Index() {
   const [isBirthday, setIsBirthday] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [text, setText] = useState("");
   const [phase, setPhase] = useState("idle");
   const [stone, setStone] = useState("");
