@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import whiteFlowerImg from "@/assets/white-flower.png";
 
 function isMarch10inJST() {
   const now = new Date();
@@ -130,19 +131,25 @@ function OpalStoneSVG() {
           <feGaussianBlur stdDeviation="1.2" />
         </filter>
       </defs>
-      <ellipse cx="60" cy="62" rx="46" ry="44" fill="rgba(160,210,240,0.15)" filter="url(#opalBlur)" />
-      <ellipse cx="60" cy="60" rx="40" ry="38" fill="url(#opalBase)" />
-      <ellipse cx="60" cy="60" rx="40" ry="38" fill="url(#opalSheen1)" />
-      <ellipse cx="60" cy="60" rx="40" ry="38" fill="url(#opalSheen2)" />
-      <ellipse cx="60" cy="60" rx="40" ry="38" fill="url(#opalSheen3)" />
+      {/* Outer glow */}
+      <path d="M60 10 Q90 30 95 60 Q90 90 60 110 Q30 90 25 60 Q30 30 60 10Z" fill="rgba(160,210,240,0.15)" filter="url(#opalBlur)" />
+      {/* Pointed opal body */}
+      <path d="M60 14 Q86 32 90 60 Q86 88 60 106 Q34 88 30 60 Q34 32 60 14Z" fill="url(#opalBase)" />
+      <path d="M60 14 Q86 32 90 60 Q86 88 60 106 Q34 88 30 60 Q34 32 60 14Z" fill="url(#opalSheen1)" />
+      <path d="M60 14 Q86 32 90 60 Q86 88 60 106 Q34 88 30 60 Q34 32 60 14Z" fill="url(#opalSheen2)" />
+      <path d="M60 14 Q86 32 90 60 Q86 88 60 106 Q34 88 30 60 Q34 32 60 14Z" fill="url(#opalSheen3)" />
+      {/* Internal shimmer */}
       <ellipse cx="45" cy="48" rx="14" ry="8" fill="rgba(200,230,255,0.3)" transform="rotate(-20 45 48)" />
       <ellipse cx="72" cy="65" rx="10" ry="6" fill="rgba(200,180,255,0.25)" transform="rotate(15 72 65)" />
       <ellipse cx="55" cy="72" rx="12" ry="5" fill="rgba(160,230,210,0.25)" transform="rotate(-10 55 72)" />
-      <ellipse cx="60" cy="60" rx="40" ry="38" fill="url(#opalHighlight)" />
-      <circle cx="40" cy="40" r="3" fill="rgba(255,255,255,0.8)" />
-      <circle cx="48" cy="35" r="1.5" fill="rgba(255,255,255,0.9)" />
-      <circle cx="75" cy="45" r="2" fill="rgba(255,255,255,0.6)" />
-      <ellipse cx="60" cy="60" rx="40" ry="38" fill="none" stroke="rgba(200,235,255,0.4)" strokeWidth="1.5" />
+      {/* Highlight */}
+      <path d="M60 14 Q86 32 90 60 Q86 88 60 106 Q34 88 30 60 Q34 32 60 14Z" fill="url(#opalHighlight)" />
+      {/* Surface sparkles */}
+      <circle cx="42" cy="38" r="3" fill="rgba(255,255,255,0.8)" />
+      <circle cx="50" cy="32" r="1.5" fill="rgba(255,255,255,0.9)" />
+      <circle cx="75" cy="50" r="2" fill="rgba(255,255,255,0.6)" />
+      {/* Edge highlight */}
+      <path d="M60 14 Q86 32 90 60 Q86 88 60 106 Q34 88 30 60 Q34 32 60 14Z" fill="none" stroke="rgba(200,235,255,0.4)" strokeWidth="1.5" />
     </svg>
   );
 }
@@ -306,7 +313,7 @@ export default function Index() {
           />
         ))}
 
-      {/* Shooting stars */}
+      {/* Shooting stars - realistic comet effect */}
       {isDark &&
         showComet &&
         COMETS.map((c) => (
@@ -316,18 +323,43 @@ export default function Index() {
               position: "absolute",
               left: `${c.startX}%`,
               top: `${c.startY}%`,
-              width: c.length,
-              height: 2,
-              background:
-                "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(200,220,255,0.6) 40%, rgba(255,255,255,1) 100%)",
-              borderRadius: 2,
               pointerEvents: "none",
               transformOrigin: "right center",
             }}
             initial={{ opacity: 0, x: 0, y: 0, rotate: 30 }}
-            animate={{ opacity: [0, 1, 1, 0], x: 180, y: 120 }}
-            transition={{ duration: 1.4, delay: c.delay * 0.3, ease: "easeIn" }}
-          />
+            animate={{ opacity: [0, 1, 1, 0], x: 260, y: 180 }}
+            transition={{ duration: 1.8, delay: c.delay * 0.3, ease: "easeOut" }}
+          >
+            {/* Comet head - bright white core */}
+            <div style={{
+              position: "absolute",
+              right: 0,
+              top: -3,
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              background: "white",
+              boxShadow: "0 0 8px 4px rgba(255,255,255,0.9), 0 0 20px 8px rgba(200,220,255,0.6), 0 0 40px 16px rgba(150,180,255,0.3)",
+            }} />
+            {/* Main tail */}
+            <div style={{
+              width: c.length,
+              height: 2,
+              background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(180,200,255,0.15) 20%, rgba(200,220,255,0.5) 60%, rgba(240,248,255,0.9) 90%, rgba(255,255,255,1) 100%)",
+              borderRadius: 1,
+            }} />
+            {/* Wider diffuse tail */}
+            <div style={{
+              position: "absolute",
+              top: -2,
+              width: c.length * 0.7,
+              height: 5,
+              right: 0,
+              background: "linear-gradient(90deg, transparent 0%, rgba(180,200,255,0.08) 40%, rgba(200,220,255,0.2) 80%, rgba(220,240,255,0.4) 100%)",
+              borderRadius: 3,
+              filter: "blur(2px)",
+            }} />
+          </motion.div>
         ))}
 
       {/* Day dust particles */}
@@ -673,7 +705,7 @@ export default function Index() {
                       {showComet && (
                         <motion.div
                           key="comet-icon"
-                          style={{ position: "absolute", fontSize: 48 }}
+                          style={{ position: "absolute" }}
                           initial={{ opacity: 0, x: -60, y: -40, scale: 0.5 }}
                           animate={{
                             opacity: [0, 1, 1, 0],
@@ -684,7 +716,17 @@ export default function Index() {
                           exit={{ opacity: 0 }}
                           transition={{ duration: 2.5, ease: "easeInOut" }}
                         >
-                          🌠
+                          {/* Realistic comet icon */}
+                          <div style={{
+                            width: 16, height: 16, borderRadius: "50%",
+                            background: "white",
+                            boxShadow: "0 0 12px 6px rgba(255,255,255,0.8), 0 0 30px 12px rgba(200,220,255,0.5), 0 0 50px 20px rgba(150,180,255,0.2)",
+                          }} />
+                          <div style={{
+                            position: "absolute", top: 6, right: 14, width: 60, height: 4,
+                            background: "linear-gradient(90deg, rgba(200,220,255,0.6), transparent)",
+                            borderRadius: 2, filter: "blur(1.5px)", transform: "rotate(15deg)",
+                          }} />
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -755,7 +797,17 @@ export default function Index() {
                         animate={{ opacity: 1, scale: 1, rotate: 0 }}
                         transition={{ duration: 2.7, ease: "easeOut" }}
                       >
-                        <WhiteFlowerSVG />
+                        <img
+                          src={whiteFlowerImg}
+                          alt="白い花"
+                          style={{
+                            width: 130,
+                            height: 130,
+                            objectFit: "cover",
+                            borderRadius: "50%",
+                            boxShadow: "0 0 30px 10px rgba(255,255,255,0.2)",
+                          }}
+                        />
                         <motion.div
                           style={{
                             position: "absolute",
