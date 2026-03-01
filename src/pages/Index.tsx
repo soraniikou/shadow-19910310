@@ -185,7 +185,7 @@ export default function Index() {
       i++;
       setDisplayedMessage(chars.slice(0, i).join(""));
       if (i >= chars.length) clearInterval(timer);
-    }, 80);
+    }, 240);
     return () => clearInterval(timer);
   }, [phase, message]);
 
