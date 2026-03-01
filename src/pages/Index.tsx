@@ -894,24 +894,6 @@ export default function Index() {
         </AnimatePresence>
       </div>
 
-      {/* Footer */}
-      <motion.p
-        style={{
-          position: "absolute",
-          bottom: 20,
-          fontSize: 15,
-          letterSpacing: "0.25em",
-          color: theme.footer,
-          fontFamily: "var(--font-serif-jp)",
-          margin: 0,
-          transition: "color 1s ease",
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1.5 }}
-      >
-        白い花は、いつも咲いている
-      </motion.p>
     </div>
   );
 }
