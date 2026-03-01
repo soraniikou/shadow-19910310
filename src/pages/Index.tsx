@@ -161,6 +161,7 @@ export default function Index() {
   const [phase, setPhase] = useState("idle");
   const [stone, setStone] = useState("");
   const [message, setMessage] = useState("");
+  const [displayedMessage, setDisplayedMessage] = useState("");
   const [showFlower, setShowFlower] = useState(false);
   const [showComet, setShowComet] = useState(false);
   const [showOpal, setShowOpal] = useState(false);
@@ -170,6 +171,23 @@ export default function Index() {
     setIsBirthday(birthday);
     if (birthday) setIsDark(true);
   }, []);
+
+  // Typewriter effect
+  useEffect(() => {
+    if (phase !== "message" || !message) {
+      setDisplayedMessage("");
+      return;
+    }
+    setDisplayedMessage("");
+    let i = 0;
+    const chars = [...message];
+    const timer = setInterval(() => {
+      i++;
+      setDisplayedMessage(chars.slice(0, i).join(""));
+      if (i >= chars.length) clearInterval(timer);
+    }, 80);
+    return () => clearInterval(timer);
+  }, [phase, message]);
 
   const handleDeliver = () => {
     if (!text.trim()) return;
@@ -850,7 +868,7 @@ export default function Index() {
                   transition: "color 1s ease",
                 }}
               >
-                {message}
+                {displayedMessage}
               </p>
 
               <motion.button
